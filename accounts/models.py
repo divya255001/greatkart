@@ -63,5 +63,8 @@ class Account(AbstractUser):
         return self.is_admin
     def has_module_perms(self,add_label):
         return True
+    class Meta:
+        verbose_name = 'Account'
+        verbose_name_plural = 'Accounts'
 
 
