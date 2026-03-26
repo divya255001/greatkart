@@ -130,6 +130,9 @@
 </div> <!-- container .//  -->
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
+ <script src="https://www.paypal.com/sdk/js?client-id=AWR85jOrxlmL2M4bVcxw27XxF9h7tgkWjJVAfqakeUtqz2DZOWlJAOR8mSsDDxqwdhwfcELcQKcV3B0o&currency=USD&intent=capture"></script>
+
+
  <script>
 	function getCookie(name){
 		let cookieValue =null;
@@ -146,7 +149,7 @@
 		return cookieValue; 
 	}
 	var amount="{{ grand_total|floatformat:2 }}";
-	var url ="{% url 'payment' %}"
+	var url ="{% url 'payments' %}"
 	var csrftoken = getCookie('csrftoken')
 	var orderID="{{order.order_number}}"
 	var payment_method ='PayPal'

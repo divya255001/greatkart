@@ -93,7 +93,7 @@ def payments(request):
 
 def place_order(request):
     current_user = request.user
-
+   
     cart_items = CartItem.objects.filter(user=current_user)
     cart_count = cart_items.count()
 
@@ -114,8 +114,12 @@ def place_order(request):
         return redirect('checkout')
 
     form = OrderForm(request.POST)
+    print("DEBUG POST DATA:", request.POST)
+    print("DEBUG Form is_valid:", form.is_valid())
+    print("DEBUG Form errors:", form.errors)
 
     if form.is_valid():
+        Order.objects.filter(user=current_user, is_ordered=False).delete()
         data = Order.objects.create(
             user=current_user,
             first_name=form.cleaned_data['first_name'],
@@ -147,7 +151,8 @@ def place_order(request):
         }
 
         return render(request, 'orders/payments.html', context)
-
+    # ✅ Helpful: print form errors to server console for debugging
+    print("Form errors:", form.errors)
     return redirect('checkout')
 def order_complete(request):
     order_number = request.GET.get('order_number')
