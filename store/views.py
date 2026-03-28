@@ -5,11 +5,11 @@ from django.shortcuts import render,redirect
 
 from carts.models import CartItem
 from carts.views import _cart_id
-from .models import Product
+from .models import Product,ProductGallery, ReviewRating
 from category.models import Category
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
-from .models import ReviewRating,Product
+
 from .forms import ReviewForm
 from django.contrib import messages
 from orders.models import OrderProduct
@@ -84,11 +84,14 @@ def product_detail(request,category_slug, product_slug):
 
     # get the reviews
     reviews = ReviewRating.objects.filter(product_id = single_product.id,status =True)
+    # get the product gallery
+    product_gallery =ProductGallery.objects.filter(product_id = single_product.id)
     context = {
         'single_product': single_product,
         'in_cart': in_cart,
         "orderproduct":orderproduct,
         'reviews':reviews,
+        'product_gallery':product_gallery,
     }
     return render(request,'store/product_detail.html', context)
 def search(request):

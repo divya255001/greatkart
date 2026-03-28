@@ -72,3 +72,28 @@ class Account(AbstractUser):
         verbose_name_plural = 'Accounts'
 
 
+class  UserProfile(models.Model):
+    user = models.OneToOneField(Account,on_delete=models.CASCADE)
+    address_line_1 = models.CharField(blank=True,max_length=100)
+    address_line_2= models.CharField(blank=True,max_length=100)
+    profile_picture = models.ImageField(blank=True, null=True, upload_to='userprofile')
+    city = models.CharField(blank=True,max_length=20)
+    state=models.CharField(blank=True,max_length=20)
+    country = models.CharField(blank=True,max_length=20)
+
+
+    def __str__(self):
+        return self.user.first_name
+
+    def full_address(self):
+        return f'{self.address_line_1} {self.address_line_2}'
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=Account)
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.get_or_create(user=instance)
+    
+
+

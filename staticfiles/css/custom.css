@@ -1,0 +1,70 @@
+/* Hide radio buttons */
+.rate > input {
+    display: none;
+}
+
+.rate {
+    display: inline-block;
+    border: 0;
+    position: relative; /* ← needed for half star positioning */
+}
+
+/* Full star labels */
+.rate > label {
+    float: right;
+    color: #ccc;
+    cursor: pointer;
+}
+
+/* Full star icon */
+.rate > label:before {
+    display: inline-block;
+    font-size: 1.1rem;
+    font-family: FontAwesome;
+    content: "\f005";       /* full star */
+    padding: 0.3rem 0.2rem;
+}
+
+/* Half star icon */
+.rate > label.half:before {
+    content: "\f089";       /* half star */
+    position: absolute;     /* ← overlaps on top of full star */
+    padding-right: 0;
+}
+
+/* Highlight selected and hovered stars */
+.rate > input:checked ~ label,
+.rate > label:hover,
+.rate > label:hover ~ label {
+    color: #d1954c;         /* gold color */
+}
+
+input:checked ~ label,label:hover ~ label{
+    color: #f3d739;
+}
+
+input:checked + label:hover,input:checked ~ label:hover,input:checked ~ label:hover ~ label,
+label:hover ~ input:checked ~ label{
+    color: #cc9000;
+}
+
+.rating-star i{
+    color :#f3d739 !important;
+}
+
+ul.thumb{
+    margin: 0;
+    padding: 0;
+    float: left;
+}
+
+.ul thumb li{
+    list-style: none;
+    margin: 10px;
+
+}
+ul.thumb li img{
+    width: 80px;
+    height: 80px;
+    border: 1px solid grey;
+}
